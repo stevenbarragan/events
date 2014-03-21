@@ -27,5 +27,20 @@ Template.display_event.events({
 
       Session.set('editing_event', null)
     }
+  },
+  'click .delete': function(evt, tmpl){
+    Events.remove(this._id)
+  }
+})
+
+Template.add_new_event.events({
+  'click .save_new_event': function(evt, tmpl){
+    new_data = {
+      name: $('.add_event .name').val(),
+      department: $('.add_event .department').val(),
+      owner: $('.add_event .owner').val()
+    }
+    Events.insert(new_data)
+    $('.add_event input[type=text]').val('')
   }
 })

@@ -3,6 +3,7 @@
     {{#each events}}
         {{> display_event}}
     {{/each}}
+    {{> add_new_event}}
   </table>
 </template>
 
@@ -29,5 +30,25 @@
         {{ owner }}
       {{/if}}
     </td>
+    <td>
+      <button class="delete">Delete</button>
+    </td>
   </tr>
+</template>
+
+<template name="add_new_event">
+  <tr class="add_event">
+    <td>
+      <input type="text" value="" class="name">
+    </td>
+    <td>
+      <input type="text" value="" class="department">
+    </td>
+    <td>
+      <input type="text" value="" class="owner">
+    </td>
+    <td>
+      <input type="submit" class="save_new_event">
+    </td>
+  </td>
 </template>
