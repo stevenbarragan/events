@@ -1,0 +1,33 @@
+<template name="display_events">
+  <table>
+    {{#each events}}
+        {{> display_event}}
+    {{/each}}
+  </table>
+</template>
+
+<template name="display_event">
+  <tr class='event'>
+    <td>
+      {{#if editing }}
+        <input type="text" value="{{name}}" class="name">
+      {{ else }}
+        {{ name }}
+      {{/if}}
+    </td>
+    <td>
+      {{#if editing }}
+        <input type="text" value="{{department}}" class="department">
+      {{ else }}
+        {{ department }}
+      {{/if}}
+    </td>
+    <td>
+      {{#if editing }}
+        <input type="text" value="{{owner}}" class="owner">
+      {{ else }}
+        {{ owner }}
+      {{/if}}
+    </td>
+  </tr>
+</template>
