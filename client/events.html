@@ -1,7 +1,14 @@
 <template name="display_events">
   <table>
+    <thead>
+      <tr>
+        <th>Event</th>
+        <th>Department</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
     {{#each events}}
-        {{> display_event}}
+      {{> display_event}}
     {{/each}}
     {{> add_new_event}}
   </table>
