@@ -43,7 +43,8 @@ Template.display_event.events({
   'click .going': function(evt, tmpl){
     Events.update({_id: this._id}, { $push: {participants: Meteor.userId() }})
   },
-  'click .notgoig': function(evt, tmpl){
+  'click .notgoing': function(evt, tmpl){
+    debugger
     Events.update({_id: this._id}, { $pull: {participants: Meteor.userId() }})
   }
 })
@@ -54,9 +55,10 @@ Template.add_new_event.events({
       name: $('.add_event .name').val(),
       department: $('.add_event .department').val(),
       owner_id: Meteor.userId(),
-      participants: []
+      participants: [Meteor.userId()]
     }
     Events.insert(new_data)
+
     $('.add_event input[type=text]').val('')
   }
 })
