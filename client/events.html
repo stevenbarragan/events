@@ -5,6 +5,7 @@
         <th>Event</th>
         <th>Department</th>
         <th>Owner</th>
+        <th>Participants</th>
       </tr>
     </thead>
     {{#each events}}
@@ -16,21 +17,21 @@
 
 <template name="display_event">
   <tr class='event'>
-    <td>
+    <td class="edit-field">
       {{#if editing }}
         <input type="text" value="{{name}}" class="name">
       {{ else }}
         {{ name }}
       {{/if}}
     </td>
-    <td>
+    <td class="edit-field">
       {{#if editing }}
         <input type="text" value="{{department}}" class="department">
       {{ else }}
         {{ department }}
       {{/if}}
     </td>
-    <td>
+    <td class="edit-field">
       {{#if editing }}
         <input type="text" value="{{owner}}" class="owner">
       {{ else }}
@@ -38,24 +39,36 @@
       {{/if}}
     </td>
     <td>
+      {{ participants.length }}
+    </td>
+    <td>
+      {{#if currentUser }}
+        {{#if already_going }}
+          <button class="btn notgoing btn-info">I'm not going</button>
+        {{ else }}
+          <button class="btn going btn-info">I'm going</button>
+        {{/if}}
+      {{/if}}
       <button class="btn delete btn-danger">Delete</button>
     </td>
   </tr>
 </template>
 
 <template name="add_new_event">
-  <tr class="add_event">
-    <td>
-      <input type="text" value="" class="name form-control">
+  {{#if currentUser }}
+    <tr class="add_event">
+      <td>
+        <input type="text" value="" class="name form-control">
+      </td>
+      <td>
+        <input type="text" value="" class="department form-control">
+      </td>
+      <td>
+        {{ currentUser.profile.name }}
+      </td>
+      <td>
+        <button class="btn save_new_event btn-default">Add</button>
+      </td>
     </td>
-    <td>
-      <input type="text" value="" class="department form-control">
-    </td>
-    <td>
-      <input type="text" value="" class="owner form-control">
-    </td>
-    <td>
-      <button class="btn save_new_event btn-default">Add</button>
-    </td>
-  </td>
+  {{/if}}
 </template>

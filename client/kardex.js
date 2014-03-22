@@ -11,8 +11,17 @@ Template.display_event.editing = function(){
   return Session.equals('editing_event', this._id)
 }
 
+Template.display_event.owner = function(){
+  user = Meteor.users.findOne({_id: this.owner_id})
+  return user.profile.name || user.profile.email
+}
+
+Template.display_event.already_going = function(){
+  return this.participants.indexOf(Meteor.userId()) >= 0
+}
+
 Template.display_event.events({
-  'dblclick .event': function(evt, tmpl){
+  'dblclick .edit-field': function(evt, tmpl){
     Session.set('editing_event', this._id)
   },
   'keypress .event input': function(evt, tmpl){
@@ -30,6 +39,12 @@ Template.display_event.events({
   },
   'click .delete': function(evt, tmpl){
     Events.remove(this._id)
+  },
+  'click .going': function(evt, tmpl){
+    Events.update({_id: this._id}, { $push: {participants: Meteor.userId() }})
+  },
+  'click .notgoig': function(evt, tmpl){
+    Events.update({_id: this._id}, { $pull: {participants: Meteor.userId() }})
   }
 })
 
@@ -38,7 +53,8 @@ Template.add_new_event.events({
     new_data = {
       name: $('.add_event .name').val(),
       department: $('.add_event .department').val(),
-      owner: $('.add_event .owner').val()
+      owner_id: Meteor.userId(),
+      participants: []
     }
     Events.insert(new_data)
     $('.add_event input[type=text]').val('')
