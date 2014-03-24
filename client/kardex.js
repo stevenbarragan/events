@@ -13,16 +13,22 @@ Template.display_event.editing = function(){
 
 Template.display_event.owner = function(){
   user = Meteor.users.findOne({_id: this.owner_id})
-  return user.profile.name || user.profile.email
+  return user && user.profile.name
 }
 
 Template.display_event.already_going = function(){
   return this.participants.indexOf(Meteor.userId()) >= 0
 }
 
+Template.display_event.loggedOwner = function(){
+  return this.owner_id === Meteor.userId()
+}
+
 Template.display_event.events({
   'dblclick .edit-field': function(evt, tmpl){
-    Session.set('editing_event', this._id)
+    if(this.owner_id == Meteor.userId()){
+      Session.set('editing_event', this._id)
+    }
   },
   'keypress .event input': function(evt, tmpl){
     if(evt.which == 13){
@@ -44,7 +50,6 @@ Template.display_event.events({
     Events.update({_id: this._id}, { $push: {participants: Meteor.userId() }})
   },
   'click .notgoing': function(evt, tmpl){
-    debugger
     Events.update({_id: this._id}, { $pull: {participants: Meteor.userId() }})
   }
 })

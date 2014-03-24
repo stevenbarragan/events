@@ -1,4 +1,12 @@
 <template name="display_events">
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-1 control-label">Search:</label>
+      <div class="col-sm-11">
+        <input type="email" class="form-control" id="inputEmail3">
+      </div>
+    </div>
+  </form>
   <table class="table">
     <thead>
       <tr>
@@ -32,11 +40,7 @@
       {{/if}}
     </td>
     <td class="edit-field">
-      {{#if editing }}
-        <input type="text" value="{{owner}}" class="owner">
-      {{ else }}
-        {{ owner }}
-      {{/if}}
+      {{ owner }}
     </td>
     <td>
       {{ participants.length }}
@@ -49,7 +53,9 @@
           <button class="btn going btn-info">I'm going</button>
         {{/if}}
       {{/if}}
-      <button class="btn delete btn-danger">Delete</button>
+      {{#if loggedOwner }}
+        <button class="btn delete btn-danger">Delete</button>
+      {{/if}}
     </td>
   </tr>
 </template>
